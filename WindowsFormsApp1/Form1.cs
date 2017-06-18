@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)                   //read feed.txt file
         {
             string[] feed = new string[101];
             if (File.Exists("feed.txt"))
@@ -29,7 +29,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void Parse_Click(object sender, EventArgs e)
+        private void Parse_Click(object sender, EventArgs e)                     //parse feed
         {
             char separator = ':';
             string[] feed = this.textBox1.Lines;
@@ -139,19 +139,19 @@ namespace WindowsFormsApp1
                 "float2p"
              };
 
-            //feed = this.textBox1.Lines;
+            
             textBox2.AppendText("Date:" + feed[0] + "\r\n");
             for (int i = 1; i < feed.Length; ++i)
             {
                 
                 int indexOfSeparator = feed[i].IndexOf(separator);
-                dataStringNumber[i] = Convert.ToInt32(feed[i].Substring(0, indexOfSeparator));
-                feed[i] = feed[i].Substring(indexOfSeparator + 1);
+                dataStringNumber[i] = Convert.ToInt32(feed[i].Substring(0, indexOfSeparator));      //array with regist number
+                feed[i] = feed[i].Substring(indexOfSeparator + 1);                                                  //array with unparsed data
 
-                switch (format[i])
+                switch (format[i])                                                                                                 //writing on textbox2 depending on format 
                 {
                     case "float2p":
-                        parcedData[i] = Convert.ToString(ParsingForFloat(feed[i], feed[i - 1]));   
+                        parcedData[i] = Convert.ToString(ParsingForFloat(feed[i], feed[i - 1]));            
                         textBox2.AppendText(String.Format("Reg {0:000}-{1:000} |   Float\t| {2}\r\n", dataStringNumber[i-1], dataStringNumber[i], parcedData[i]));
                         break;
                     case "long2p":
